@@ -12,7 +12,7 @@
 
 // Create a constructor function that creates an object associated with each product and put them in an array
 function Product (name, imgSource){
-  this.name = name;//used as the image id
+  this.name = name;
   this.imgSource = imgSource;
   this.clickCount = 0;
   this.displayedCount = 0;
@@ -23,7 +23,6 @@ function Product (name, imgSource){
 Product.allProducts = [];// array to hold the products
 Product.clicks = 0;
 Product.maxVotes = 6;//number of votes the user can have - change back to 25
-Product.random = [];
 
 
 // Create a function to display the product images and count when each product is displayed
@@ -71,68 +70,15 @@ function renderThankYou(){
 
 // create a function to randomly generate three products and put them on the page
 
-// function putNewProductsOnPage(){
-//   var target = document.getElementById('products');
-//   target.innerHTML = ''; //clear out the products shown
-
-//   for (var i = 0; i < 3; i++){ //generate three new random images
-//     var randoIndex = Math.floor(Math.random() * Product.allProducts.length);
-//     Product.allProducts[randoIndex].render();//put the images on the page
-//   }
-// }
-
-// function putNewProductsOnPage(){
-//   var target = document.getElementById('products');
-//   target.innerHTML = ''; //clear out the products shown
-
-//   //  generate 3 different random numbers from the length of the Products.allProducts array
-//   //    Step 1: generate a number, put it in an array (Product.random)
-//   //    Step 2: generate another number, compare it to the numbers in the array
-//   //    Step 3: if doesn't match, put it in the array, if does match discard it
-//   //    repeat steps 2 and 3 until have 3 numbers in the array
-
-//   Product.random = [];
-//   for (var i = 0; i < 3; i++){ //generate three new random images
-//     var randoIndex = Math.floor(Math.random() * Product.allProducts.length);
-//     console.log('randoIndex is ' + randoIndex);
-//     if (Product.random.includes(randoIndex) === false){
-//       Product.random.push(randoIndex);
-//     }else {
-//       i--;
-//     }
-//     console.log('product random is ' + Product.random);
-
-//   }
-//   for (var j = 0; j < Product.random.length; j++){
-//     var n = Product.random[j];
-//     Product.allProducts[n].render();
-//   }
-// }
-
 function putNewProductsOnPage(){
   var target = document.getElementById('products');
   target.innerHTML = ''; //clear out the products shown
 
-  var lastArray = Product.random; //record the values of the last set of random numbers
-  Product.random = [];
   for (var i = 0; i < 3; i++){ //generate three new random images
-    var randoIndex = Math.floor(Math.random() * Product.allProducts.length);//generate a random number
-    if (Product.random.includes(randoIndex) === false && lastArray.includes(randoIndex) === false){
-      Product.random.push(randoIndex);
-    }else {
-      i--;//don't count this instance and try again
-    }
-
+    var randoIndex = Math.floor(Math.random() * Product.allProducts.length);
+    Product.allProducts[randoIndex].render();//put the images on the page
   }
-
-  for (var j = 0; j < Product.random.length; j++){
-    var n = Product.random[j];
-    Product.allProducts[n].render();
-  }
-  console.log('Product.random is ' +Product.random);
 }
-
-
 
 function putResultsOnPage(){
 
@@ -166,6 +112,11 @@ function makeResultsChart(){
   for (var i = 0; i < Product.allProducts.length; i++){
     timesDisplayed.push(Product.allProducts[i].displayedCount);
   }
+
+  console.log(namesOfProducts);
+  console.log(timesClicked);
+  console.log(timesDisplayed);
+
 
 
   var resultsChart = new Chart(ctx, {
