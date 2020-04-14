@@ -1,0 +1,71 @@
+
+*{
+  border: dotted red 1px;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: lightskyblue;
+  color: rgb(70, 69, 69);
+}
+
+main {
+  overflow:hidden;
+}
+
+section {
+  overflow: hidden;
+  margin: 30 px;
+}
+article {
+  overflow: hidden;
+}
+
+
+#voting-message {
+  border-bottom-width: 5px;
+  border-style: solid;
+  border-color: darkblue;
+  margin-left: 30px;
+  padding-bottom: 30px;
+}
+
+#results ul {
+  border-style: solid;
+  border-width: 5px;
+  border-color: darkblue;
+  margin: 20px;
+}
+
+#results li {
+  /* padding-left: 30px; */
+  margin: 30px;
+}
+
+h1 {
+  color: white;
+  font-size: 20px;
+  margin: 30px;
+}
+
+p {
+  margin: 30px;
+}
+
+#products ul{
+  overflow: hidden;
+}
+
+#products li{
+  float:left;
+  margin: 30px;
+
+}
+
+#products img {
+  max-height: 150px;
+  max-width: 150px;
+  /* height: 200px; */
+  /* width: 25%; */
+}
