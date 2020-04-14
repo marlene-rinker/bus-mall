@@ -39,13 +39,13 @@ Product.prototype.render = function(){
   newP.textContent = this.name;
   newLi.appendChild(newP);
 
-  newP = document.createElement('p');
-  newP.textContent = 'Clicked = ' + this.clickCount;
-  newLi.appendChild(newP);
+  // newP = document.createElement('p');
+  // newP.textContent = 'Clicked = ' + this.clickCount;
+  // newLi.appendChild(newP);
 
-  newP = document.createElement('p');
-  newP.textContent = 'Displayed = ' + this.displayedCount;
-  newLi.appendChild(newP);
+  // newP = document.createElement('p');
+  // newP.textContent = 'Displayed = ' + this.displayedCount;
+  // newLi.appendChild(newP);
 
   target.appendChild(newLi);
 
