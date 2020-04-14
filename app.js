@@ -7,11 +7,6 @@
 // generate a report after the user has finished voting that shows a list of all the products with the votes received and number of times the product was shown (Banana Slicer had 3 votes and was shown 5 times)
 
 
-// display products (3 at a time)
-// click on a product and it gets counted
-// show new products
-// repeat 25 times
-// generate a report with the results (in a list)
 
 var allProducts = [];// array to hold the products
 
@@ -78,19 +73,33 @@ function putNewProductsOnPage(){
   }
 }
 
+function putResultsOnPage(){
+
+
+  var target = document.getElementById('results');
+
+
+  for(var i = 0; i < allProducts.length; i++){
+    var newLi = document.createElement('li');
+    // newLi.textContent = allProducts[i].name + ' was shown ' + allProducts[i].displayedCount + ' times and clicked ' + allProducts[i].clickCount + ' times.';
+    newLi.textContent = allProducts[i].name + ' had ' + allProducts[i].clickCount + ' votes and was shown ' + allProducts[i].displayedCount + ' times.';
+    target.appendChild(newLi);
+  }
+}
+
 // create a callback function that allows a user to vote a certain number of times for a product and counts when a product is clicked
 
-var clicks = 1;
-var maxVotes = 6;//this should be changed to 25 later
+var clicks = 0;
+var maxVotes = 25;//number of votes the user can have
 
 function handleClickOnProduct(e){
   if (e.target.id){
 
 
     if (clicks < maxVotes) {
-      console.log('you clicked me ' + clicks);
-      console.log('event target ' + e.target);
-      console.log('event.target.id ' + e.target.id);
+      // console.log('you clicked me ' + clicks);
+      // console.log('event target ' + e.target);
+      // console.log('event.target.id ' + e.target.id);
 
       for (var i = 0; i < allProducts.length; i++){
         if(e.target.id === allProducts[i].name){
@@ -102,9 +111,8 @@ function handleClickOnProduct(e){
         putNewProductsOnPage();
       }
       if (clicks === maxVotes){
-        console.log('product 1 was shown ' + allProducts[0].displayedCount + ' and was clicked ' + allProducts[0].clickCount + ' time(s)');
         renderThankYou();
-        // clear images and put thank you for playing message instead
+        putResultsOnPage();
       }
 
     }
@@ -117,13 +125,30 @@ var ulEl = document.getElementById('products');
 ulEl.addEventListener('click', handleClickOnProduct);
 
 
-
+// add products and put them on the page
 
 new Product('Bag', 'images/bag.jpg');
 new Product('Banana', 'images/banana.jpg');
 new Product('Bathroom', 'images/bathroom.jpg');
+new Product('Boots', 'images/boots.jpg');
+new Product('Breakfast', 'images/breakfast.jpg');
+new Product('Bubble Gum', 'images/bubblegum.jpg');
+new Product('Chair', 'images/chair.jpg');
+new Product('Cthulhu', 'images/cthulhu.jpg');
+new Product('Dog Duck', 'images/dog-duck.jpg');
+new Product('Dragon', 'images/dragon.jpg');
+new Product('Pen', 'images/pen.jpg');
+new Product('Pet Sweep', 'images/pet-sweep.jpg');
+new Product('Scissors', 'images/scissors.jpg');
+new Product('Shark', 'images/shark.jpg');
+new Product('Sweep', 'images/sweep.png');
+new Product('Tauntaun', 'images/tauntaun.jpg');
+new Product('Unicorn', 'images/unicorn.jpg');
+new Product('USB', 'images/usb.gif');
+new Product('Water Can', 'images/water-can.jpg');
+new Product('Wine Glass', 'images/wine-glass.jpg');
 
-console.log(allProducts);
+
 
 putNewProductsOnPage();
 
