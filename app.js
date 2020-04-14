@@ -8,7 +8,7 @@
 
 
 
-var allProducts = [];// array to hold the products
+// var allProducts = [];// array to hold the products
 
 // Create a constructor function that creates an object associated with each product and put them in an array
 function Product (name, imgSource){
@@ -17,8 +17,12 @@ function Product (name, imgSource){
   this.clickCount = 0;
   this.displayedCount = 0;
 
-  allProducts.push(this);
+  Product.allProducts.push(this);
 }
+
+Product.allProducts = [];// array to hold the products
+Product.clicks = 0;
+Product.maxVotes = 6;//number of votes the user can have - change back to 25
 
 
 // Create a function to display the product images and count when each product is displayed
@@ -59,6 +63,9 @@ function renderThankYou(){
   var message = document.getElementById('voting-message');
   message.textContent = 'Your votes have been counted. Thanks for voting!';
 
+  // ulEl.removeEventListener('click', handleClickOnProduct);
+
+
 }
 
 // create a function to randomly generate three products and put them on the page
@@ -68,8 +75,8 @@ function putNewProductsOnPage(){
   target.innerHTML = ''; //clear out the products shown
 
   for (var i = 0; i < 3; i++){ //generate three new random images
-    var randoIndex = Math.floor(Math.random() * allProducts.length);
-    allProducts[randoIndex].render();//put the images on the page
+    var randoIndex = Math.floor(Math.random() * Product.allProducts.length);
+    Product.allProducts[randoIndex].render();//put the images on the page
   }
 }
 
@@ -79,40 +86,94 @@ function putResultsOnPage(){
   var target = document.getElementById('results');
 
 
-  for(var i = 0; i < allProducts.length; i++){
+  for(var i = 0; i < Product.allProducts.length; i++){
     var newLi = document.createElement('li');
-    // newLi.textContent = allProducts[i].name + ' was shown ' + allProducts[i].displayedCount + ' times and clicked ' + allProducts[i].clickCount + ' times.';
-    newLi.textContent = allProducts[i].name + ' had ' + allProducts[i].clickCount + ' votes and was shown ' + allProducts[i].displayedCount + ' times.';
+    newLi.textContent = Product.allProducts[i].name + ' had ' + Product.allProducts[i].clickCount + ' votes and was shown ' + Product.allProducts[i].displayedCount + ' times.';
     target.appendChild(newLi);
   }
 }
 
 // create a callback function that allows a user to vote a certain number of times for a product and counts when a product is clicked
 
-var clicks = 0;
-var maxVotes = 25;//number of votes the user can have
+function makeResultsChart(){
+  var ctx = document.getElementById('resultsChart').getContext('2d');
+
+  var namesOfProducts = [];
+  for (var i = 0; i < Product.allProducts.length; i++){
+    namesOfProducts.push(Product.allProducts[i].name);
+  }
+
+  var timesClicked = [];
+  for (var i = 0; i < Product.allProducts.length; i++){
+    timesClicked.push(Product.allProducts[i].clickCount);
+  }
+
+  var timesDisplayed = [];
+  for (var i = 0; i < Product.allProducts.length; i++){
+    timesDisplayed.push(Product.allProducts[i].displayedCount);
+  }
+
+  console.log(namesOfProducts);
+  console.log(timesClicked);
+  console.log(timesDisplayed);
+
+
+
+  var resultsChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+      labels: namesOfProducts,
+      datasets: [{
+        label: 'Number of Votes',
+        data: timesClicked,
+        backgroundColor: 'grey',
+        borderColor: 'orange',
+        borderWidth: 3
+      },
+      {
+        label: 'Number of Times Displayed',
+        data: timesDisplayed,
+        backgroundColor: 'pink',
+        borderColor: 'darkblue',
+        borderWidth: 3
+
+      }]
+    },
+    options: {
+      scales: {
+
+        yAxes: [{
+          stacked: true,
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
 
 function handleClickOnProduct(e){
   if (e.target.id){
+    // console.log('i am still alive');
 
 
-    if (clicks < maxVotes) {
-      // console.log('you clicked me ' + clicks);
-      // console.log('event target ' + e.target);
+    if (Product.clicks < Product.maxVotes) {
       // console.log('event.target.id ' + e.target.id);
 
-      for (var i = 0; i < allProducts.length; i++){
-        if(e.target.id === allProducts[i].name){
-          allProducts[i].clickCount++;
+      for (var i = 0; i < Product.allProducts.length; i++){
+        if(e.target.id === Product.allProducts[i].name){
+          Product.allProducts[i].clickCount++;
         }
       }
-      clicks++;
-      if (clicks < maxVotes){
+      Product.clicks++;
+      if (Product.clicks < Product.maxVotes){
         putNewProductsOnPage();
       }
-      if (clicks === maxVotes){
+      if (Product.clicks === Product.maxVotes){
         renderThankYou();
         putResultsOnPage();
+        makeResultsChart();
       }
 
     }
@@ -125,6 +186,8 @@ var ulEl = document.getElementById('products');
 ulEl.addEventListener('click', handleClickOnProduct);
 
 
+
+
 // add products and put them on the page
 
 new Product('Bag', 'images/bag.jpg');
@@ -133,20 +196,20 @@ new Product('Bathroom', 'images/bathroom.jpg');
 new Product('Boots', 'images/boots.jpg');
 new Product('Breakfast', 'images/breakfast.jpg');
 new Product('Bubble Gum', 'images/bubblegum.jpg');
-new Product('Chair', 'images/chair.jpg');
-new Product('Cthulhu', 'images/cthulhu.jpg');
-new Product('Dog Duck', 'images/dog-duck.jpg');
-new Product('Dragon', 'images/dragon.jpg');
-new Product('Pen', 'images/pen.jpg');
-new Product('Pet Sweep', 'images/pet-sweep.jpg');
-new Product('Scissors', 'images/scissors.jpg');
-new Product('Shark', 'images/shark.jpg');
-new Product('Sweep', 'images/sweep.png');
-new Product('Tauntaun', 'images/tauntaun.jpg');
-new Product('Unicorn', 'images/unicorn.jpg');
-new Product('USB', 'images/usb.gif');
-new Product('Water Can', 'images/water-can.jpg');
-new Product('Wine Glass', 'images/wine-glass.jpg');
+// new Product('Chair', 'images/chair.jpg');
+// new Product('Cthulhu', 'images/cthulhu.jpg');
+// new Product('Dog Duck', 'images/dog-duck.jpg');
+// new Product('Dragon', 'images/dragon.jpg');
+// new Product('Pen', 'images/pen.jpg');
+// new Product('Pet Sweep', 'images/pet-sweep.jpg');
+// new Product('Scissors', 'images/scissors.jpg');
+// new Product('Shark', 'images/shark.jpg');
+// new Product('Sweep', 'images/sweep.png');
+// new Product('Tauntaun', 'images/tauntaun.jpg');
+// new Product('Unicorn', 'images/unicorn.jpg');
+// new Product('USB', 'images/usb.gif');
+// new Product('Water Can', 'images/water-can.jpg');
+// new Product('Wine Glass', 'images/wine-glass.jpg');
 
 
 
