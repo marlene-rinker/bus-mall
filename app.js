@@ -8,8 +8,6 @@
 
 
 
-// var allProducts = [];// array to hold the products
-
 // Create a constructor function that creates an object associated with each product and put them in an array
 function Product (name, imgSource){
   this.name = name;//used as the image id
@@ -22,7 +20,7 @@ function Product (name, imgSource){
 
 Product.allProducts = [];// array to hold the products
 Product.clicks = 0;
-Product.maxVotes = 25;//number of votes the user can have - change back to 25
+Product.maxVotes = 25;//number of votes the user can have 
 Product.random = [];
 
 
@@ -44,14 +42,6 @@ Product.prototype.render = function(){
   newP.textContent = this.name;
   newLi.appendChild(newP);
 
-  // newP = document.createElement('p');
-  // newP.textContent = 'Clicked = ' + this.clickCount;
-  // newLi.appendChild(newP);
-
-  // newP = document.createElement('p');
-  // newP.textContent = 'Displayed = ' + this.displayedCount;
-  // newLi.appendChild(newP);
-
   target.appendChild(newLi);
 
 };
@@ -71,42 +61,27 @@ function renderThankYou(){
 
 // create a function to randomly generate three products and put them on the page
 
+
 function putNewProductsOnPage(){
   var target = document.getElementById('products');
   target.innerHTML = ''; //clear out the products shown
 
   var lastArray = Product.random; //record the values of the last set of random numbers
   Product.random = [];
+  var randoIndex;
+
   for (var i = 0; i < 3; i++){ //generate three new random images
-    var randoIndex = Math.floor(Math.random() * Product.allProducts.length);//generate a random number
-    if (Product.random.includes(randoIndex) === false && lastArray.includes(randoIndex) === false){
-      Product.random.push(randoIndex);
-    }else {
-      i--;//don't count this instance and try again
+    do {
+      var randoIndex = Math.floor(Math.random() * Product.allProducts.length);
     }
+    while (Product.random.includes(randoIndex) === true || lastArray.includes(randoIndex) === true);
+
+    Product.random.push(randoIndex);
+    Product.allProducts[randoIndex].render();
 
   }
-  for (var j = 0; j < Product.random.length; j++){
-    var n = Product.random[j];
-    Product.allProducts[n].render();
-  }
-
 }
 
-
-
-// function putResultsOnPage(){
-
-
-//   var target = document.getElementById('results');
-
-
-//   for(var i = 0; i < Product.allProducts.length; i++){
-//     var newLi = document.createElement('li');
-//     newLi.textContent = Product.allProducts[i].name + ' had ' + Product.allProducts[i].clickCount + ' votes and was shown ' + Product.allProducts[i].displayedCount + ' times.';
-//     target.appendChild(newLi);
-//   }
-// }
 
 // create a callback function that allows a user to vote a certain number of times for a product and counts when a product is clicked
 
@@ -134,7 +109,7 @@ function makeResultsChart(){
     }
   }
 
-  
+
 
 
   var resultsChart = new Chart(ctx, {
@@ -163,7 +138,7 @@ function makeResultsChart(){
           ticks: {
             beginAtZero: true,
             min: 0,
-            max: max + 5
+            max: max + 2
           }
         }],
 
@@ -195,7 +170,6 @@ function handleClickOnProduct(e){
       }
       if (Product.clicks === Product.maxVotes){
         renderThankYou();
-        // putResultsOnPage();
         makeResultsChart();
       }
 
