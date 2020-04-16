@@ -9,19 +9,26 @@
 
 
 // Create a constructor function that creates an object associated with each product and put them in an array
-function Product (name, imgSource){
+function Product (name, imgSource, clickCount =0, displayedCount = 0){
   this.name = name;//used as the image id
   this.imgSource = imgSource;
-  this.clickCount = 0;
-  this.displayedCount = 0;
+  this.clickCount = clickCount;
+  this.displayedCount = displayedCount;
 
   Product.allProducts.push(this);
 }
 
 Product.allProducts = [];// array to hold the products
 Product.clicks = 0;
-Product.maxVotes = 25;//number of votes the user can have 
+Product.maxVotes = 25;//number of votes the user can have - change back to 25
 Product.random = [];
+
+
+function putProductsInLocalStorage(){
+  var stringyAllProducts = JSON.stringify(Product.allProducts);
+  console.log('stringyAllProducts is ', stringyAllProducts);
+  localStorage.setItem('productsInLocalStorage', stringyAllProducts);
+}
 
 
 // Create a function to display the product images and count when each product is displayed
@@ -55,8 +62,6 @@ function renderThankYou(){
   message.textContent = 'Your votes have been counted. Thanks for voting!';
 
   // ulEl.removeEventListener('click', handleClickOnProduct);
-
-
 }
 
 // create a function to randomly generate three products and put them on the page
@@ -80,6 +85,7 @@ function putNewProductsOnPage(){
     Product.allProducts[randoIndex].render();
 
   }
+  putProductsInLocalStorage();
 }
 
 
@@ -108,9 +114,6 @@ function makeResultsChart(){
       max = counts;
     }
   }
-
-
-
 
   var resultsChart = new Chart(ctx, {
     type: 'horizontalBar',
@@ -164,6 +167,8 @@ function handleClickOnProduct(e){
           Product.allProducts[i].clickCount++;
         }
       }
+      putProductsInLocalStorage();
+
       Product.clicks++;
       if (Product.clicks < Product.maxVotes){
         putNewProductsOnPage();
@@ -172,45 +177,76 @@ function handleClickOnProduct(e){
         renderThankYou();
         makeResultsChart();
       }
-
     }
   }
 
 }
 
+
+
+function getProductsFromLocalStorage(){
+  // get the array from local storage and use JSON.parse on it
+  var stringAllProductsInStorage = localStorage.getItem('productsInLocalStorage');
+  var jsAllProductsInStorage = JSON.parse(stringAllProductsInStorage);
+  console.log('productsInLocalStorage after being parsed', jsAllProductsInStorage);
+
+  for (var i =0; i < jsAllProductsInStorage.length; i++){
+    var nameLS = jsAllProductsInStorage[i].name;
+    var imgSource = jsAllProductsInStorage[i].imgSource;
+    var clicksLS = jsAllProductsInStorage[i].clickCount;
+    var displayedLS = jsAllProductsInStorage[i].displayedCount;
+
+    new Product (nameLS, imgSource, clicksLS, displayedLS);
+  }
+
+}
+
+
+
 // Use an event listener to listen for a a product to be clicked
 var ulEl = document.getElementById('products');
 ulEl.addEventListener('click', handleClickOnProduct);
 
-
+// use an event listener to listen for the button to reset local storage to be clicked
+// Nicco Ryan showed me how to create the button to reset local storage.
+var resetStorageButton = document.getElementById('resetButton');
+resetStorageButton.addEventListener('click', function(){
+  localStorage.clear();
+  location.reload();
+});
 
 
 // add products and put them on the page
 
-new Product('Bag', 'images/bag.jpg');
-new Product('Banana', 'images/banana.jpg');
-new Product('Bathroom', 'images/bathroom.jpg');
-new Product('Boots', 'images/boots.jpg');
-new Product('Breakfast', 'images/breakfast.jpg');
-new Product('Bubble Gum', 'images/bubblegum.jpg');
-new Product('Chair', 'images/chair.jpg');
-new Product('Cthulhu', 'images/cthulhu.jpg');
-new Product('Dog Duck', 'images/dog-duck.jpg');
-new Product('Dragon', 'images/dragon.jpg');
-new Product('Pen', 'images/pen.jpg');
-new Product('Pet Sweep', 'images/pet-sweep.jpg');
-new Product('Scissors', 'images/scissors.jpg');
-new Product('Shark', 'images/shark.jpg');
-new Product('Sweep', 'images/sweep.png');
-new Product('Tauntaun', 'images/tauntaun.jpg');
-new Product('Unicorn', 'images/unicorn.jpg');
-new Product('USB', 'images/usb.gif');
-new Product('Water Can', 'images/water-can.jpg');
-new Product('Wine Glass', 'images/wine-glass.jpg');
-
+if(localStorage.getItem('productsInLocalStorage')){
+  getProductsFromLocalStorage();
+}else {
+  new Product('Bag', 'images/bag.jpg');
+  new Product('Banana', 'images/banana.jpg');
+  new Product('Bathroom', 'images/bathroom.jpg');
+  new Product('Boots', 'images/boots.jpg');
+  new Product('Breakfast', 'images/breakfast.jpg');
+  new Product('Bubble Gum', 'images/bubblegum.jpg');
+  new Product('Chair', 'images/chair.jpg');
+  new Product('Cthulhu', 'images/cthulhu.jpg');
+  new Product('Dog Duck', 'images/dog-duck.jpg');
+  new Product('Dragon', 'images/dragon.jpg');
+  new Product('Pen', 'images/pen.jpg');
+  new Product('Pet Sweep', 'images/pet-sweep.jpg');
+  new Product('Scissors', 'images/scissors.jpg');
+  new Product('Shark', 'images/shark.jpg');
+  new Product('Sweep', 'images/sweep.png');
+  new Product('Tauntaun', 'images/tauntaun.jpg');
+  new Product('Unicorn', 'images/unicorn.jpg');
+  new Product('USB', 'images/usb.gif');
+  new Product('Water Can', 'images/water-can.jpg');
+  new Product('Wine Glass', 'images/wine-glass.jpg');
+}
 
 
 putNewProductsOnPage();
+
+
 
 
 

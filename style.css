@@ -22,6 +22,20 @@ article {
   overflow: hidden;
 }
 
+#resetButton {
+  font-size: 15px;
+  color: white;
+  background-color: darkblue;
+  margin-top: 15px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: darkblue;
+  border-radius: 5px;
+  position: absolute;
+  right: 30px;
+  
+}
+
 
 #voting-message {
   border-bottom-width: 5px;
