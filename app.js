@@ -122,15 +122,15 @@ function makeResultsChart(){
       datasets: [{
         label: 'Number of Votes',
         data: timesClicked,
-        backgroundColor: 'grey',
-        borderColor: 'rgb(0,180,99)',
+        backgroundColor: 'rgb(8,0,138)',
+        borderColor: 'white',
         borderWidth: 3
       },
       {
         label: 'Number of Times Displayed',
         data: timesDisplayed,
-        backgroundColor: 'rgb(250,203,97)',
-        borderColor: 'darkblue',
+        backgroundColor: 'rgb(70, 69, 69)',
+        borderColor: 'white',
         borderWidth: 3
 
       }]
@@ -146,7 +146,7 @@ function makeResultsChart(){
         }],
 
         yAxes: [{
-          stacked: false
+          stacked: true
         },
         ]
       }
