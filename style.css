@@ -14,6 +14,18 @@ header {
   margin-bottom: 50px;
 }
 
+h1 {
+  color: white;
+  /* font-size: 50px; */
+  font-size: 350%;
+  margin: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 150%;
+}
+
 
 main {
   overflow:hidden;
@@ -66,12 +78,7 @@ article {
   margin: 30px;
 }
 
-h1 {
-  color: white;
-  font-size: 50px;
-  margin: 30px;
-  text-align: center;
-}
+
 
 /* p {
   margin: 30px;
@@ -91,6 +98,7 @@ h1 {
 
 #products p {
   padding: 5px;
+  font-size: 125%;
 }
 
 #products img {
