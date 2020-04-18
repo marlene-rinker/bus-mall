@@ -114,7 +114,9 @@ function makeResultsChart(){
       max = counts;
     }
   }
-
+  Chart.defaults.global.defaultFontColor = 'rgb(8,0,138)';
+  Chart.defaults.global.defaultFontSize = 16;
+  Chart.defaults.global.defaultFontFamily = "'Sansita', sans-serif";
   var resultsChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
@@ -122,16 +124,16 @@ function makeResultsChart(){
       datasets: [{
         label: 'Number of Votes',
         data: timesClicked,
-        backgroundColor: 'rgb(8,0,138)',
+        backgroundColor: 'rgb(0,180,99)',
         borderColor: 'white',
-        borderWidth: 3
+        borderWidth: 2
       },
       {
         label: 'Number of Times Displayed',
         data: timesDisplayed,
-        backgroundColor: 'rgb(70, 69, 69)',
+        backgroundColor: 'rgb(250,203,97)',
         borderColor: 'white',
-        borderWidth: 3
+        borderWidth: 2
 
       }]
     },
