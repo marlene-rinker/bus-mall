@@ -25,7 +25,6 @@ header {
 
 h1 {
   color: white;
-  /* font-size: 50px; */
   font-size: 350%;
   margin: 30px;
   text-align: center;
@@ -39,12 +38,6 @@ h2 {
 main {
   overflow:hidden;
 }
-
-/* section:first-of-type {
-  border-bottom-width: 5px;
-  border-style: solid;
-  border-color: rgb(8,0,138);
-} */
 
 section {
   overflow: hidden;
@@ -104,10 +97,6 @@ footer {
 }
 
 
-/* p {
-  margin: 30px;
-} */
-
 #products ul{
   overflow: hidden;
   margin-left: auto;
@@ -131,10 +120,23 @@ footer {
 }
 
 #products img {
-  /* max-height: 200px;*/
   max-width: 200px; 
   height: 200px;
-  /* width: 200px; */
-  /* width: 25%; */
   margin-bottom: 20px;
+}
+
+.busInHeader {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  animation: theBus 10s linear infinite;
+}
+
+@keyframes theBus {
+  0% {
+    left: -300px;
+  }
+  100% {
+    left: 100%;
+  }
 }
