@@ -12,11 +12,19 @@ body {
 
 header {
   margin-bottom: 50px;
+  font: size 15;px;
+  font-style:italic;
+  border-bottom-color:rgb(8,0,138);
+  border-bottom-style:double;
+  border-bottom-width: 5px;
+  margin-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 5px;
 }
 
 h1 {
   color: white;
-  /* font-size: 50px; */
   font-size: 350%;
   margin: 30px;
   text-align: center;
@@ -41,6 +49,9 @@ section {
 }
 article {
   overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 #resetButton {
@@ -59,10 +70,6 @@ article {
 
 
 #voting-message {
-  border-bottom-width: 5px;
-  border-style: solid;
-  border-color: rgb(8,0,138);
-  /* margin-left: 30px; */
   padding-bottom: 10px;
 }
 
@@ -74,18 +81,27 @@ article {
 }
 
 #results li {
-  /* padding-left: 30px; */
   margin: 30px;
 }
 
+footer {
+  font: size 15;px;
+  font-style:italic;
+  border-top-color:rgb(8,0,138);
+  border-top-style:double;
+  border-top-width: 5px;
+  margin-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 5px;
+}
 
-
-/* p {
-  margin: 30px;
-} */
 
 #products ul{
   overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 #products li{
@@ -93,6 +109,8 @@ article {
   margin-top: 30px;
   width: 30%;
   margin-right: 1%;
+  padding-left: 90px;
+  
 
 }
 
@@ -102,10 +120,23 @@ article {
 }
 
 #products img {
-  /* max-height: 200px;*/
   max-width: 200px; 
   height: 200px;
-  /* width: 200px; */
-  /* width: 25%; */
   margin-bottom: 20px;
+}
+
+.busInHeader {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  animation: theBus 10s linear infinite;
+}
+
+@keyframes theBus {
+  0% {
+    left: -300px;
+  }
+  100% {
+    left: 100%;
+  }
 }

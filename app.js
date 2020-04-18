@@ -1,11 +1,5 @@
+/* eslint-disable no-undef */
 'use strict';
-
-// PD: Display three unique products by chance so the viewers can pick a favorite by clicking on it
-//  after the user selects one, display three new products for the user to pick
-// record each time a product is picked (clicked);
-// the user should vote 25 times (should be a variable that can be changed for testing)
-// generate a report after the user has finished voting that shows a list of all the products with the votes received and number of times the product was shown (Banana Slicer had 3 votes and was shown 5 times)
-
 
 
 // Create a constructor function that creates an object associated with each product and put them in an array
@@ -60,8 +54,6 @@ function renderThankYou(){
 
   var message = document.getElementById('voting-message');
   message.textContent = 'Your votes have been counted. Thanks for voting!';
-
-  // ulEl.removeEventListener('click', handleClickOnProduct);
 }
 
 // create a function to randomly generate three products and put them on the page
@@ -104,7 +96,7 @@ function makeResultsChart(){
     timesClicked.push(Product.allProducts[i].clickCount);
   }
 
-  var max =0;
+  var max =0;//allows you to set the scale of the chart, removed from chart, but leaving code here so it's available
 
   var timesDisplayed = [];
   for (i = 0; i < Product.allProducts.length; i++){
@@ -114,24 +106,26 @@ function makeResultsChart(){
       max = counts;
     }
   }
-
-  var resultsChart = new Chart(ctx, {
+  Chart.defaults.global.defaultFontColor = 'rgb(8,0,138)';
+  Chart.defaults.global.defaultFontSize = 16;
+  Chart.defaults.global.defaultFontFamily = 'Sansita', 'sans-serif';
+  new Chart(ctx, {
     type: 'horizontalBar',
     data: {
       labels: namesOfProducts,
       datasets: [{
         label: 'Number of Votes',
         data: timesClicked,
-        backgroundColor: 'rgb(8,0,138)',
+        backgroundColor: 'rgb(0,180,99)',
         borderColor: 'white',
-        borderWidth: 3
+        borderWidth: 2
       },
       {
         label: 'Number of Times Displayed',
         data: timesDisplayed,
-        backgroundColor: 'rgb(70, 69, 69)',
+        backgroundColor: 'rgb(250,203,97)',
         borderColor: 'white',
-        borderWidth: 3
+        borderWidth: 2
 
       }]
     },
@@ -141,7 +135,7 @@ function makeResultsChart(){
           ticks: {
             beginAtZero: true,
             min: 0,
-            max: max + 2
+            // max: max + Math.round(max * .1)
           }
         }],
 
@@ -156,8 +150,6 @@ function makeResultsChart(){
 
 function handleClickOnProduct(e){
   if (e.target.id){
-    // console.log('i am still alive');
-
 
     if (Product.clicks < Product.maxVotes) {
       // console.log('event.target.id ' + e.target.id);
@@ -185,7 +177,6 @@ function handleClickOnProduct(e){
 
 
 function getProductsFromLocalStorage(){
-  // get the array from local storage and use JSON.parse on it
   var stringAllProductsInStorage = localStorage.getItem('productsInLocalStorage');
   var jsAllProductsInStorage = JSON.parse(stringAllProductsInStorage);
   console.log('productsInLocalStorage after being parsed', jsAllProductsInStorage);
